@@ -293,10 +293,15 @@
         },mounted() {
           this.initLocalStorage();
         },
+        watch: {
+          monsters: {
+            handler(newValue) {
+              localStorage.setItem("monsters", JSON.stringify(newValue));
+            },
+            deep: true,
+          },
+        },
       }).mount("#app"); 
-
     </script>
-
-
   </body>
 </html>

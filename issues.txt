@@ -1,12 +1,12 @@
 LISTE DES ISSUES:
 
-1. Initialisation du localStorage avec un monstre par défaut et un id unique
+1. Initialisation du localStorage avec un monstre par défaut et un id unique : OK
 Nom de l’issue : Initialisation des monstres avec un id unique
 Nom du commit : feat: initialize monsters with unique id in localStorage
 Objectif : Initialiser des monstres fictifs dans le localStorage avec un id unique pour chaque monstre.
 Détails : Chaque monstre aura un id unique, comme { id: 2024545676, name: "Aqualizzard", type: "aquatique", pv: 50, attaque: 50 }. Générer cet id via Date.now().
 
-2. Mise en place d’un watcher pour la sauvegarde automatique
+2. Mise en place d’un watcher pour la sauvegarde automatique :OK
 Nom de l’issue : Sauvegarde automatique avec watcher profond
 Nom du commit : feat: implement deep watcher for automatic localStorage sync
 Objectif : Mettre en place un watcher profond pour sauvegarder automatiquement les modifications dans le localStorage.
