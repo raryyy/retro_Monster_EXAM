@@ -91,7 +91,6 @@
           <button class="tab-button active">Ajouter un Monstre</button>
           <button class="tab-button">Filtres</button>
         </div>
-
         <!-- Contenu des onglets -->
         <div id="form" class="tab-content active">
           <h2 class="text-3xl monster-header mb-6">Ajouter un Monstre</h2>
@@ -261,5 +260,43 @@
         <p>&copy; 2024 Monstres WTF Vintage. Tous droits réservés.</p>
       </div>
     </footer>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        Vue.createApp({
+            data() {
+              return {
+                monsters: [],
+             };
+          },
+        
+        methods: {
+
+          initLocalStorage() {
+            if (!localStorage.getItem('monsters')) {
+              const initialMonsters = [
+                {
+                  id: Date.now(),
+                  name: "Aqualizzard",
+                  type: "aquatique",
+                  pv: 50,
+                  attaque: 50,
+                }
+              ];
+              localStorage.setItem('monsters', JSON.stringify(initialMonsters));
+              this.monsters = initialMonsters;
+            } else {
+              this.monsters = JSON.parse(localStorage.getItem('monsters'));
+            }
+          },
+        },mounted() {
+          this.initLocalStorage();
+        },
+      }).mount("#app"); 
+
+    </script>
+
+
   </body>
 </html>
