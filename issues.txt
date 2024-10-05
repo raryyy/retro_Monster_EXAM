@@ -32,7 +32,7 @@ Objectif : Supprimer un monstre en utilisant son id.
 Méthode : deleteOneById(id)
 Détails : Lorsqu’un utilisateur clique sur "Supprimer", supprimer le monstre correspondant à l’id donné de la liste des monstres en ajoutant une micro-animation animateCSS.
 
-7. Modification d’un monstre existant en utilisant l’id
+7. Modification d’un monstre existant en utilisant l’id : EN COURS
 Nom de l’issue : Modification d’un monstre
 Nom du commit : feat: edit and update monster by id
 Objectif : Modifier un monstre en utilisant son id.

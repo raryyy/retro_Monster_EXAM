@@ -101,7 +101,7 @@
         <!-- Contenu des onglets -->
         <div id="form" class="tab-content active">
           <h2 class="text-3xl monster-header mb-6">Ajouter un Monstre</h2>
-          <form class="grid grid-cols-1 gap-4" @submit.prevent="addOne">
+          <form class="grid grid-cols-1 gap-4">
             <div>
               <label class="block mb-2">Nom du Monstre</label>
               <input
@@ -151,10 +151,18 @@
             </div>
 
             <button
-              class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click.prevent="addOne()"
+              v-if="!isEditing"
             >
               Ajouter Monstre
             </button>
+            <!-- modifier un monstre -->
+            <button
+            class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click.prevent="updateOneById(inputMonster.id)"
+            v-else
+          >
+            Modifier Le Monstre
+          </button>
           </form>
         </div>
 
@@ -249,7 +257,7 @@
               <span>Attaque: {{ monster.attaque }}</span>
             </div>
             <div class="text-right">
-              <button class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-full">
+              <button class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-full" @click.prevent="editOneById(monster.id)">
                 Modifier
               </button>
               <button class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded-full" @click.prevent="deleteOneById(monster.id)">
@@ -276,6 +284,7 @@
               return {
                 monsters: [],
                 inputMonster: { id: null, name: "", type: "", description: "", pv: "", attaque: "" },
+                isEditing: false,
              };
           },
         
@@ -312,6 +321,21 @@
                 1
               );
             }, 600);
+          },
+          editOneById(id) {
+            this.isEditing = true;
+            this.inputMonster = {
+              ...this.monsters.find((item) => item.id == id),
+            };
+          },
+          updateOneById(id) {
+            this.monsters.splice(
+              this.monsters.findIndex((item) => item.id == id),
+              1,
+              { ...this.inputMonster }
+            );
+            this.inputMonster = { id: null, name: "", type: "", description: "", pv: "", attaque: "" };
+            this.isEditing = false;
           },
         },mounted() {
           this.initLocalStorage();
