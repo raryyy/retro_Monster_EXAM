@@ -222,30 +222,28 @@
       <section class="w-2/3 p-6">
         <h2 class="text-3xl monster-header mb-6">Monstres Actuels</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-          <!-- Carte de monstre -->
           <div
+            v-for="monster in monsters"
+            :key="monster.id"
+            :data-monster-type="monster.type"
             class="monster-card bg-gray-700 rounded-lg shadow-lg p-6"
-            data-monster-type="aquatique"
           >
             <img
-              src="images/aqualizzard.png"
+              :src="'images/' + monster.name.toLowerCase() + '.png'"
               class="w-full h-40 object-cover rounded mb-4"
             />
-            <h3 class="text-xl font-bold">Aqualizzard</h3>
-            <p class="text-gray-300 text-sm mb-4">Monster Description</p>
+            <h3 class="text-xl font-bold">{{ monster.name }}</h3>
+            <p class="text-gray-300 text-sm mb-4">ID: {{ monster.id }}</p>
+            <p class="text-gray-300 text-sm mb-4">Type: {{ monster.type }}</p>
             <div class="flex justify-between items-center mb-2">
-              <span>PV: 50</span>
-              <span>Attaque: 50</span>
+              <span>PV: {{ monster.pv }}</span>
+              <span>Attaque: {{ monster.attaque }}</span>
             </div>
             <div class="text-right">
-              <button
-                class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-full"
-              >
+              <button class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-full">
                 Modifier
               </button>
-              <button
-                class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded-full"
-              >
+              <button class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded-full">
                 Supprimer
               </button>
             </div>
