@@ -238,7 +238,7 @@
         <h2 class="text-3xl monster-header mb-6">Monstres Actuels</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
           <div
-            v-for="monster in monsters"
+            v-for="monster in sortedMonsters()"
             :key="monster.id"
             :data-monster-type="monster.type"
             class="monster-card bg-gray-700 rounded-lg shadow-lg p-6"
@@ -336,6 +336,11 @@
             );
             this.inputMonster = { id: null, name: "", type: "", description: "", pv: "", attaque: "" };
             this.isEditing = false;
+          },
+          sortedMonsters() {
+            return this.monsters.slice().sort((a, b) => {
+              return a.name.localeCompare(b.name);
+            });
           },
         },mounted() {
           this.initLocalStorage();
