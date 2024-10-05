@@ -12,7 +12,14 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css"
     />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
     <style>
+      .animate__backOutRight {
+        animation-duration: 1s;
+      }
       .monster-card[data-monster-type="cosmique"] {
         background: linear-gradient(to right, #6e48aa, #9d50bb);
       }
@@ -227,6 +234,7 @@
             :key="monster.id"
             :data-monster-type="monster.type"
             class="monster-card bg-gray-700 rounded-lg shadow-lg p-6"
+            :class="{ animate__backOutRight : monster.isDeleted}"
           >
             <img
               :src="'images/' + monster.name.toLowerCase() + '.png'"
@@ -244,7 +252,7 @@
               <button class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-full">
                 Modifier
               </button>
-              <button class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded-full">
+              <button class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded-full" @click.prevent="deleteOneById(monster.id)">
                 Supprimer
               </button>
             </div>
@@ -294,6 +302,16 @@
             this.inputMonster.id = Date.now();
             this.monsters.push({ ...this.inputMonster });
             this.inputMonster = { id: null, name: "", type: "", description: "", pv: "", attaque: "" };
+          },
+          deleteOneById(id) {
+            const monster = this.monsters.find((item) => item.id == id);
+            monster.isDeleted = true;
+            setTimeout(() => {
+              this.monsters.splice(
+                this.monsters.findIndex((item) => item.id == id),
+                1
+              );
+            }, 600);
           },
         },mounted() {
           this.initLocalStorage();
