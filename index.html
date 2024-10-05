@@ -94,13 +94,13 @@
         <!-- Contenu des onglets -->
         <div id="form" class="tab-content active">
           <h2 class="text-3xl monster-header mb-6">Ajouter un Monstre</h2>
-          <form class="grid grid-cols-1 gap-4">
+          <form class="grid grid-cols-1 gap-4" @submit.prevent="addOne">
             <div>
               <label class="block mb-2">Nom du Monstre</label>
               <input
                 type="text"
                 class="w-full p-2 bg-gray-800 text-white rounded"
-                placeholder="Nom du monstre"
+                placeholder="Nom du monstre" v-model="inputMonster.name"
               />
             </div>
 
@@ -111,7 +111,7 @@
                 <input
                   type="number"
                   class="w-full p-2 bg-gray-800 text-white rounded"
-                  placeholder="PV"
+                  placeholder="PV" v-model="inputMonster.pv"
                 />
               </div>
               <div>
@@ -119,7 +119,7 @@
                 <input
                   type="number"
                   class="w-full p-2 bg-gray-800 text-white rounded"
-                  placeholder="Attaque"
+                  placeholder="Attaque " v-model="inputMonster.attaque"
                 />
               </div>
             </div>
@@ -128,13 +128,13 @@
               <label class="block mb-2">Description</label>
               <textarea
                 class="w-full p-2 bg-gray-800 text-white rounded"
-                placeholder="Description du monstre"
+                placeholder="Description du monstre" v-model="inputMonster.description"
               ></textarea>
             </div>
 
             <div>
               <label class="block mb-2">Type de Monstre</label>
-              <select class="w-full p-2 bg-gray-800 text-white rounded">
+              <select class="w-full p-2 bg-gray-800 text-white rounded" v-model="inputMonster.type">
                 <option value="aquatique">Aquatique</option>
                 <option value="terrestre">Terrestre</option>
                 <option value="volant">Volant</option>
@@ -235,6 +235,7 @@
             <h3 class="text-xl font-bold">{{ monster.name }}</h3>
             <p class="text-gray-300 text-sm mb-4">ID: {{ monster.id }}</p>
             <p class="text-gray-300 text-sm mb-4">Type: {{ monster.type }}</p>
+            <p class="text-gray-300 text-sm mb-4">Description: {{ monster.description }}</p>
             <div class="flex justify-between items-center mb-2">
               <span>PV: {{ monster.pv }}</span>
               <span>Attaque: {{ monster.attaque }}</span>
@@ -266,6 +267,7 @@
             data() {
               return {
                 monsters: [],
+                inputMonster: { id: null, name: "", type: "", description: "", pv: "", attaque: "" },
              };
           },
         
@@ -278,6 +280,7 @@
                   id: Date.now(),
                   name: "Aqualizzard",
                   type: "aquatique",
+                  description: "monstre aquatique",
                   pv: 50,
                   attaque: 50,
                 }
@@ -287,6 +290,10 @@
             } else {
               this.monsters = JSON.parse(localStorage.getItem('monsters'));
             }
+          },addOne() {
+            this.inputMonster.id = Date.now();
+            this.monsters.push({ ...this.inputMonster });
+            this.inputMonster = { id: null, name: "", type: "", description: "", pv: "", attaque: "" };
           },
         },mounted() {
           this.initLocalStorage();
